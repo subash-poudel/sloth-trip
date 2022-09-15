@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Tour } from "../models/City";
-
+import "../App.css";
 const theme = createTheme({
   components: {
     MuiTypography: {
@@ -45,7 +45,7 @@ export const TourCard = (props: ITourCard) => {
   return (
     <Grid item xs={3}>
       <ThemeProvider theme={theme}>
-        <Paper elevation={2}>
+        <Paper elevation={15}>
           <img src={image} alt="" className="img" />
           <Box paddingX={1}>
             <Typography component="h2" variant="subtitle1">

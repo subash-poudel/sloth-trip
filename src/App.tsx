@@ -5,7 +5,6 @@ import { getCities } from "./utils";
 
 function App() {
   const cities = getCities();
-  console.log(cities);
   return (
     <>
       <MyAppBar />
