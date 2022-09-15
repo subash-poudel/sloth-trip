@@ -1,18 +1,20 @@
-import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
-import "./App.css";
-import { TourCard } from "./components/TourCard";
+import MyAppBar from "./components/AppBar";
+import { CityTour } from "./components/CityTour";
+import { getCities } from "./utils";
 
 function App() {
+  const cities = getCities();
+  console.log(cities);
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <TourCard />
-        <TourCard />
-        <TourCard />
-        <TourCard />
-      </Grid>
-    </Container>
+    <>
+      <MyAppBar />
+      <Container sx={{ marginY: 5 }}>
+        {cities.map((c, idx) => (
+          <CityTour city={c} key={idx} />
+        ))}
+      </Container>
+    </>
   );
 }
 

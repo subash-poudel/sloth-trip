@@ -1,42 +1,79 @@
 import { AccessTime } from "@mui/icons-material";
-import { Grid, Paper, Rating, Typography } from "@mui/material";
+import {
+  createTheme,
+  Grid,
+  Paper,
+  Rating,
+  Typography,
+  ThemeProvider,
+} from "@mui/material";
 import { Box } from "@mui/system";
+import { Tour } from "../models/City";
 
-export const TourCard = () => {
+const theme = createTheme({
+  components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: {
+            variant: "body2",
+          },
+          style: {
+            fontSize: 11,
+          },
+        },
+        {
+          props: {
+            variant: "body1",
+          },
+          style: {
+            fontSize: 9,
+          },
+        },
+      ],
+    },
+  },
+});
+
+type ITourCard = {
+  tour: Tour;
+};
+
+export const TourCard = (props: ITourCard) => {
+  const { duration, image, name, numberOfReviews, price, rating } =
+    props.tour;
   return (
     <Grid item xs={3}>
-      <Paper elevation={2}>
-        <img
-          src="https://cdn.britannica.com/30/94430-050-D0FC51CD/Niagara-Falls.jpg"
-          alt=""
-          className="img"
-        />
-        <Box paddingX={1}>
-          <Typography component="h2" variant="subtitle1">
-            Immerse into the Falls
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <AccessTime sx={{ width: 12.5 }} />
-            <Typography component="p" variant="body2" marginLeft={0.5}>
-              5 hours
+      <ThemeProvider theme={theme}>
+        <Paper elevation={2}>
+          <img src={image} alt="" className="img" />
+          <Box paddingX={1}>
+            <Typography component="h2" variant="subtitle1">
+              {name}
             </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <AccessTime sx={{ width: 12.5 }} />
+              <Typography component="p" variant="body2" marginLeft={0.5}>
+                {duration}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }} marginTop={3}>
+              <Rating value={rating} readOnly precision={0.5} size="small" />
+              <Typography component="p" variant="body2" marginLeft={0.5}>
+                {rating}
+              </Typography>
+              <Typography component="p" variant="body2" marginLeft={0.5}>
+                (${numberOfReviews})
+              </Typography>
+            </Box>
+            <Box>
+              <Typography component="h3" variant="h6" marginTop={0}>
+                {price}
+              </Typography>
+            </Box>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }} marginTop={3}>
-            <Rating value={3} readOnly precision={0.5} size="small" />
-            <Typography component="p" variant="body2" marginLeft={0.5}>
-              4.5
-            </Typography>
-            <Typography component="p" variant="body2" marginLeft={0.5}>
-              (655 reviews )
-            </Typography>
-          </Box>
-          <Box>
-            <Typography component="h3" variant="h6" marginTop={0}>
-              From C $147
-            </Typography>
-          </Box>
-        </Box>
-      </Paper>
+        </Paper>
+      </ThemeProvider>
     </Grid>
   );
 };
