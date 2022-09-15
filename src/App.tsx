@@ -1,18 +1,17 @@
-import { Container } from "@mui/system";
+import Home from "./pages/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyAppBar from "./components/AppBar";
-import { CityTour } from "./components/CityTour";
-import { getCities } from "./utils";
 
 function App() {
-  const cities = getCities();
   return (
     <>
       <MyAppBar />
-      <Container sx={{ marginY: 5 }}>
-        {cities.map((c, idx) => (
-          <CityTour city={c} key={idx} />
-        ))}
-      </Container>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<p>Path not resolved</p>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
