@@ -10,6 +10,7 @@ import {
 import { Box } from "@mui/system";
 import { Tour } from "../models/City";
 import "../App.css";
+import { Link } from "react-router-dom";
 const theme = createTheme({
   components: {
     MuiTypography: {
@@ -40,39 +41,40 @@ type ITourCard = {
 };
 
 export const TourCard = (props: ITourCard) => {
-  const { duration, image, name, numberOfReviews, price, rating } =
-    props.tour;
+  const { duration, image, name, numberOfReviews, price, rating, id } = props.tour;
   return (
     <Grid item xs={3}>
       <ThemeProvider theme={theme}>
-        <Paper elevation={15}>
-          <img src={image} alt="" className="img" />
-          <Box paddingX={1}>
-            <Typography component="h2" variant="subtitle1">
-              {name}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <AccessTime sx={{ width: 12.5 }} />
-              <Typography component="p" variant="body2" marginLeft={0.5}>
-                {duration}
+        <Link to={`/${id}`}>
+          <Paper elevation={15}>
+            <img src={image} alt="" className="img" />
+            <Box paddingX={1}>
+              <Typography component="h2" variant="subtitle1">
+                {name}
               </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <AccessTime sx={{ width: 12.5 }} />
+                <Typography component="p" variant="body2" marginLeft={0.5}>
+                  {duration}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center" }} marginTop={3}>
+                <Rating value={rating} readOnly precision={0.5} size="small" />
+                <Typography component="p" variant="body2" marginLeft={0.5}>
+                  {rating}
+                </Typography>
+                <Typography component="p" variant="body2" marginLeft={0.5}>
+                  (${numberOfReviews})
+                </Typography>
+              </Box>
+              <Box>
+                <Typography component="h3" variant="h6" marginTop={0}>
+                  {price}
+                </Typography>
+              </Box>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center" }} marginTop={3}>
-              <Rating value={rating} readOnly precision={0.5} size="small" />
-              <Typography component="p" variant="body2" marginLeft={0.5}>
-                {rating}
-              </Typography>
-              <Typography component="p" variant="body2" marginLeft={0.5}>
-                (${numberOfReviews})
-              </Typography>
-            </Box>
-            <Box>
-              <Typography component="h3" variant="h6" marginTop={0}>
-                {price}
-              </Typography>
-            </Box>
-          </Box>
-        </Paper>
+          </Paper>
+        </Link>
       </ThemeProvider>
     </Grid>
   );

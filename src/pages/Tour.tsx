@@ -4,15 +4,22 @@ import Box from "@mui/material/Box";
 import ImageCollage from "../components/ImageCollage";
 import Faq from "../components/Faq";
 import { BottomNav } from "../components/BottomNav";
+import { useTourId } from "../hooks/useTourId";
 
 export const Tour = () => {
+  const { error, data } = useTourId();
+  console.log({ error, data });
+  if (error) {
+    return <p>Error invalid url</p>;
+  }
+  const { city, tour } = data!;
   return (
     <>
       <Container sx={{ width: 900 }}>
         <Typography variant={"h3"} component={"h1"} marginTop={3}>
-          Welcome to Niagra Falls
+          {city.name}
         </Typography>
-        <p>This is a tour</p>
+        <p>{tour.name}</p>
         <Box marginTop={3} sx={{ display: "flex" }}>
           <img
             src="https://cdn.britannica.com/30/94430-050-D0FC51CD/Niagara-Falls.jpg"
